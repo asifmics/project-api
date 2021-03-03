@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login()
     {
        $credentials = request(['email','password']);
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth()->claims(['name' => 'demo test'])->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'],401);
         }
 
@@ -55,5 +55,13 @@ class AuthController extends Controller
     public function refresh()
     {
        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function payload()
+    {
+        return auth()->payload();
     }
 }

@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-
+    Route::post('payload', [AuthController::class, 'payload']);
 });
-
 Route::apiResource('category', CategoryController::class);
+
