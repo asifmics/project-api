@@ -23,6 +23,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('me', [AuthController::class, 'me']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('payload', [AuthController::class, 'payload']);
+    Route::post('register', [AuthController::class, 'register']);
 });
 Route::apiResource('category', CategoryController::class);
 

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::orderBy('id', 'desc')->get();
-        return response()->json($categories, 201);
+        return response()->json($categories, 200);
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return response()->json($category, 201);
+        return response()->json($category, 200);
     }
 
     public function update(Request $request, Category $category)
@@ -44,13 +44,13 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($request->name);
         $data['is_active'] = 1;
         $category->update($data);
-        return response()->json('success', 201);
+        return response()->json('success', 200);
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return response()->json('success', 201);
+        return response()->json('success', 200);
     }
 
 

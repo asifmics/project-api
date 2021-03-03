@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api',['except' => ['login']]);
+        $this->middleware('auth:api',['except' => ['login','register']]);
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->all();
+        $this->validate($request, [
+            'name' => 'required|string|max:25',
+            'email' => 'required|email|string|max:25|unique:users',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        $data['password'] = Hash::make($request->password);
+        User::create($data);
+        return response()->json('success', 201);
     }
 
     public function login()
@@ -64,4 +79,6 @@ class AuthController extends Controller
     {
         return auth()->payload();
     }
+
+
 }
